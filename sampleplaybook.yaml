@@ -1,0 +1,19 @@
+---
+- name: install default nginx server and create default page 
+  hosts: test
+  become: yes
+  
+  tasks: 
+    - name: install nginx
+      apt:
+        name: nginx
+        state: latest
+    - name: start nginx and enable it on boot
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+    - name: create content
+      copy:
+        content: "Congrats on installing ansible!"
+        dest: /var/www/html/index.html
